@@ -3,30 +3,21 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.Product;
 
-import java.util.Arrays;
-
-import static org.skypro.skyshop.basket.ProductBasket.searchNull;
-import static org.skypro.skyshop.basket.ProductBasket.sumAndCompare;
-
 public class App {
     public static void main(String[] args) {
         Product[] products = new Product[10];
         ProductBasket basket = new ProductBasket();
 
         addProduct(products);
-        Integer[] nullIndices = searchNull(products);
-        System.out.println("Индексы null элементов: " + Arrays.toString(nullIndices));
-        sumAndCompare(nullIndices);
         print(products);
 
-        basket.addProductOnBasket(basket, products);
         System.out.println("Sum of products in the basket = " + basket.takePay());
         basket.printBasket();
 
         String productNameToCheck = "яблоко Эдема";
         checkProduct(basket, productNameToCheck);
 
-        basket.clearBasket2();
+        basket.clearBasket();
         print(products);
         basket.printBasket();
 
@@ -35,7 +26,7 @@ public class App {
         Product[] productsDemo = new Product[10];
         ProductBasket basketDemo = new ProductBasket();
         productsDemo[0] = new Product(200, "упаковка яиц 10шт.");
-        basketDemo.addProductFromMemoryProduct(productsDemo[0]);
+        basketDemo.addProduct(productsDemo[0]);
 
         System.out.println("!Добавление продукта в заполненную корзину, в которой нет свободного места...");
         ProductBasket fullPullBasketDemo = new ProductBasket();
@@ -44,24 +35,31 @@ public class App {
         productsDemo[7] = new Product(300, "сыр");
         productsDemo[3] = new Product(450, "телёнок");
         productsDemo[4] = new Product(500, "печенье");
-        basketDemo.addProductOnBasket(fullPullBasketDemo, productsDemo);
+        basketDemo.addProduct(productsDemo[0]);
+        fullPullBasketDemo.addProduct(productsDemo[5]);
+        fullPullBasketDemo.addProduct(productsDemo[6]);
+        fullPullBasketDemo.addProduct(productsDemo[7]);
+        fullPullBasketDemo.addProduct(productsDemo[3]);
+        fullPullBasketDemo.addProduct(productsDemo[4]);
 
         System.out.println("!Печать содержимого корзины с несколькими товарами...");
         print(productsDemo);
         fullPullBasketDemo.printBasket();
+        basketDemo.printBasket();
 
         System.out.println("!Получение стоимости корзины с несколькими товарами...");
         System.out.println(fullPullBasketDemo.takePay());
+        System.out.println(basketDemo.takePay());
 
         System.out.println("!Поиск товара, который есть в корзине...");
         System.out.println(fullPullBasketDemo.checkProductOnBasket("молоко"));
 
         System.out.println("!Поиск товара, которого нет в корзине.");
-        System.out.println(fullPullBasketDemo.checkProductOnBasket("сыр"));
+        System.out.println(fullPullBasketDemo.checkProductOnBasket("упаковка яиц 10шт"));
 
         System.out.println("!Очистка корзины...");
-        fullPullBasketDemo.clearBasket2();
-        basketDemo.clearBasket2();
+        fullPullBasketDemo.clearBasket();
+        basketDemo.clearBasket();
 
         System.out.println("!Печать содержимого пустой корзины...");
         fullPullBasketDemo.printBasket();

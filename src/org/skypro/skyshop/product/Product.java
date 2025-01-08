@@ -26,7 +26,7 @@ public class Product {
     }
 
     public int getPrice() {
-               return price;
+        return price;
     }
 
     public String toString() {

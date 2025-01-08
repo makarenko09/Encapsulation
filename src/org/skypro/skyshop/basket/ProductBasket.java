@@ -14,7 +14,7 @@ public class ProductBasket {
 
     }
 
-    public void addProductFromMemoryProduct(Product product) {
+    public void addProduct(Product product) {
         if (count >= MAX_PRODUCTS) {
             System.out.println("Корзина заполнена, невозможно добавить продукт: " + product);
             return;
@@ -26,18 +26,16 @@ public class ProductBasket {
         products[count++] = product;
     }
 
-    public void addProductOnBasket(ProductBasket basket, Product[] products) {
-        System.out.println("Basket.addProductOnBasket");
-        for (Product product : products) {
-            basket.addProductFromMemoryProduct(product);
-        }
-        System.out.println("basket = " + basket);
-    }
-
     public void printBasket() {
         System.out.println("\nProductBasket.printBasket");
-        if (searchNull(products).length >= MAX_PRODUCTS) {
-            System.out.println("«в корзине пусто».");
+        int nullCount = 0;
+        for (Product product : products) {
+            if (product == null) {
+                nullCount++;
+            }
+        }
+        if (nullCount >= products.length) {
+            System.out.println("«В корзине пусто».");
         } else {
             for (Product product : products) {
                 if (product != null) { // Проверяем, чтобы продукт не был null
@@ -75,7 +73,7 @@ public class ProductBasket {
         return false;
     }
 
-    public void clearBasket2() {
+    public void clearBasket() {
         for (int i = 0; i < products.length; i++) {
             if (products[i] != null) {
                 products[i] = null;
@@ -106,25 +104,5 @@ public class ProductBasket {
         }
 
         return Arrays.copyOf(integerArray, count);
-    }
-
-
-
-    public static void sumAndCompare(Integer[] nullIndices) {
-        if (nullIndices != null) {
-            int sum = 0;
-            for (Integer index : nullIndices) {
-                sum += index;
-            }
-            System.out.println("Сумма индексов null элементов: " + sum);
-            System.out.println("Количество null элементов: " + nullIndices.length);
-            if (sum > nullIndices.length) {
-                System.out.println("Сумма индексов больше количества null элементов.");
-            } else if (sum < nullIndices.length) {
-                System.out.println("Сумма индексов меньше количества null элементов.");
-            } else {
-                System.out.println("Сумма индексов равна количеству null элементов.");
-            }
-        }
     }
 }
