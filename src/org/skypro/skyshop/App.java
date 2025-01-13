@@ -1,7 +1,10 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
 
 public class App {
     public static void main(String[] args) {
@@ -22,19 +25,19 @@ public class App {
         basket.printBasket();
 
         //demo
-        System.out.println("\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n###################################################\n!Добавление продукта в корзину...");
+        System.out.println("#####\n#####\n#####\n#####\n#####\n#####\n!Добавление продукта в корзину...");
         Product[] productsDemo = new Product[10];
         ProductBasket basketDemo = new ProductBasket();
-        productsDemo[0] = new Product(200, "упаковка яиц 10шт.");
+        productsDemo[0] = new SimpleProduct(200, "упаковка яиц 10шт.");
         basketDemo.addProduct(productsDemo[0]);
 
         System.out.println("!Добавление продукта в заполненную корзину, в которой нет свободного места...");
         ProductBasket fullPullBasketDemo = new ProductBasket();
-        productsDemo[5] = new Product(15_000, "МОЁТ");
-        productsDemo[6] = new Product(200, "молоко");
-        productsDemo[7] = new Product(300, "сыр");
-        productsDemo[3] = new Product(450, "телёнок");
-        productsDemo[4] = new Product(500, "печенье");
+        productsDemo[5] = new SimpleProduct(15_000, "МОЁТ");
+        productsDemo[6] = new SimpleProduct(200, "молоко");
+        productsDemo[7] = new SimpleProduct(300, "сыр");
+        productsDemo[3] = new SimpleProduct(450, "телёнок");
+        productsDemo[4] = new SimpleProduct(500, "печенье");
         basketDemo.addProduct(productsDemo[0]);
         fullPullBasketDemo.addProduct(productsDemo[5]);
         fullPullBasketDemo.addProduct(productsDemo[6]);
@@ -74,7 +77,28 @@ public class App {
         System.out.println(fullPullBasketDemo.checkProductOnBasket("сыр"));
         System.out.println(basketDemo.checkProductOnBasket("молоко"));
         System.out.println(basketDemo.checkProductOnBasket("сыр"));
+        // lesson two
+        System.out.println("#####\n#####\n#####\n#####\n#####\n#####\n!Создайте в методе несколько товаров специальных типов вместо " +
+                "SimpleProduct...");
+        productsDemo[0] = new DiscountedProduct("Килька в томатном соусе", 150, 15);
+        productsDemo[1] = new DiscountedProduct("Икра красная", 2700, 26);
+        productsDemo[2] = new SimpleProduct(50, "Капуста зеленая");
+        productsDemo[3] = new SimpleProduct(280, "Перец острый-Чили");
+        productsDemo[6] = new FixPriceProduct("Банка пива ж/б 0.5л. «ОХОТА КРЕПКАЯ»");
+        productsDemo[7] = new FixPriceProduct("Лимонад Макеевский с/б 0.45л. «Клюква»");
+        productsDemo[4] = new DiscountedProduct("Фигурка Альтаира", 18_000000, 99);
+        ProductBasket newBasketDemo = new ProductBasket();
+        newBasketDemo.addProduct(productsDemo[0]);
+        newBasketDemo.addProduct(productsDemo[1]);
+        newBasketDemo.addProduct(productsDemo[6]);
+        newBasketDemo.addProduct(productsDemo[7]);
+        newBasketDemo.addProduct(productsDemo[4]);
 
+        System.out.println("!Проверьте, что все методы выводят правильные значения...");
+        print(productsDemo);
+        System.out.println("!Убедитесь, что метод печати содержимого корзины выводит результат в нужной форме...");
+        newBasketDemo.printBasket();
+        System.out.println("newBasketDemo.takePay() = " + newBasketDemo.takePay());
     }
 
     private static void checkProduct(ProductBasket basket, String name) {
@@ -87,12 +111,12 @@ public class App {
     }
 
     private static void addProduct(Product[] products) {
-        products[0] = new Product(100, "яицо");
-        products[1] = new Product(200, "молоко");
-        products[2] = new Product(300, "сыр");
-        products[3] = new Product(450, "телёнок");
-        products[4] = new Product(500, "печенье");
-        products[5] = new Product(90_009_666, "яблоко Эдема");
+        products[0] = new SimpleProduct(100, "яицо");
+        products[1] = new SimpleProduct(200, "молоко");
+        products[2] = new SimpleProduct(300, "сыр");
+        products[3] = new SimpleProduct(450, "телёнок");
+        products[4] = new SimpleProduct(500, "печенье");
+        products[5] = new SimpleProduct(90_009_666, "яблоко Эдема");
     }
 
     private static void print(Product[] products) {

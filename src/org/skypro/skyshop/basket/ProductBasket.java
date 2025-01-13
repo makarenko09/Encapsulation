@@ -1,6 +1,7 @@
 package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
 
 import java.util.Arrays;
 
@@ -23,7 +24,10 @@ public class ProductBasket {
             System.out.println("Нельзя добавить null-продукт");
             return;
         }
+
         products[count++] = product;
+        System.out.println("Номер продукта: "+ count + " - продукт добавлен : " + product);
+        System.out.println(product.isSpecial());
     }
 
     public void printBasket() {
@@ -38,11 +42,9 @@ public class ProductBasket {
             System.out.println("«В корзине пусто».");
         } else {
             for (Product product : products) {
-                if (product != null) { // Проверяем, чтобы продукт не был null
 
-                    System.out.println("<" + product.getName() + ">: " + "<" + product.getPrice() + ">");
+                    System.out.println(product);
 
-                }
             }
             System.out.println("Итого: <" + takePay() + ">");
         }
@@ -53,8 +55,6 @@ public class ProductBasket {
         for (Product product : products) {
             if (product != null) {
                 sumToPay += product.getPrice();
-            } else {
-                return sumToPay += 0;
             }
         }
         return sumToPay;
@@ -81,28 +81,10 @@ public class ProductBasket {
         }
     }
 
-
-
     @Override
     public String toString() {
         return "ProductBasket{" +
                 "products=" + Arrays.toString(products) +
                 '}';
-    }
-
-
-
-    public static Integer[] searchNull(Product[] products) {
-        Integer[] integerArray = new Integer[products.length];
-        int count = 0;
-
-        for (int i = 0; i < products.length; i++) {
-            if (products[i] == null) {
-                integerArray[count] = i;
-                count++;
-            }
-        }
-
-        return Arrays.copyOf(integerArray, count);
     }
 }

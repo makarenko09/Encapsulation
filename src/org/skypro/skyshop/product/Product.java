@@ -1,36 +1,26 @@
 package org.skypro.skyshop.product;
 
-public class Product {
+public abstract class Product {
+    protected String name;
 
-    private String name;
-    private Integer price;
-
-    public Product(int price, String name) {
-        if (price <= 0) {
-            throw new IllegalArgumentException("цена не может быть отрицательной или нулём");
-        }
-        if (name.length() < 2 || name.length() > 20) {
+    public Product(String name) {
+        this.name = name;
+        if (this.name.length() < 2 || this.name.length() > 150) {
             throw new IllegalArgumentException("имя товара должно быть от 2 до 20 символов");
         }
-        this.price = price;
-        this.name = name;
-
     }
 
+    public abstract int getPrice();
+public abstract boolean isSpecial();
     public String getName() {
 
         if (name == null) {
             throw new IllegalArgumentException("Имя продукта не может быть null");
         }
-        return name;
-    }
-
-    public int getPrice() {
-        return price;
+        return this.name;
     }
 
     public String toString() {
-        return "price=" + price +
-                ", name='" + name + '\'';
+        return  "name='" + name + '\'';
     }
 }
