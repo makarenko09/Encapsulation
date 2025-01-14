@@ -7,18 +7,29 @@ import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 
 public class App {
+    private static final int fixIndexValueOfMethodToAddProduct = 600;
+    private static int coast = 0;
     public static void main(String[] args) {
-        Product[] products = new Product[10];
-        ProductBasket basket = new ProductBasket();
+        Product[] products = new Product[fixIndexValueOfMethodToAddProduct];
+        products[coast++] = new SimpleProduct(100, "яицо");
+        products[coast++] = new SimpleProduct(200, "молоко");
+        products[coast++] = new SimpleProduct(300, "сыр");
+        products[coast++] = new SimpleProduct(450, "телёнок");
+        products[coast++] = new SimpleProduct(500, "печенье");
+        products[coast++] = new SimpleProduct(90_009_666, "яблоко Эдема");
+        products[coast++] = new SimpleProduct(78, "кефир");
+        products[coast++] = new SimpleProduct(350, "грецкий орех 110г.");
+        products[coast++] = new SimpleProduct(496, "прокладки");
+        products[coast++] = new SimpleProduct(47, "хлеб");
 
-        addProduct(products);
         print(products);
+        ProductBasket basket = new ProductBasket();
 
         System.out.println("Sum of products in the basket = " + basket.takePay());
         basket.printBasket();
 
         String productNameToCheck = "яблоко Эдема";
-        checkProduct(basket, productNameToCheck);
+        basket.checkProduct(productNameToCheck);
 
         basket.clearBasket();
         print(products);
@@ -101,29 +112,14 @@ public class App {
         System.out.println("newBasketDemo.takePay() = " + newBasketDemo.takePay());
     }
 
-    private static void checkProduct(ProductBasket basket, String name) {
-        boolean checked = basket.checkProductOnBasket(name);
-        if (checked) {
-            System.out.println("Продукт: '" + name + "' есть в корзине, " + checked);
-        } else {
-            System.out.println("Продукт: '" + name + "' отсутствует в корзине, " + checked);
-        }
-    }
-
-    private static void addProduct(Product[] products) {
-        products[0] = new SimpleProduct(100, "яицо");
-        products[1] = new SimpleProduct(200, "молоко");
-        products[2] = new SimpleProduct(300, "сыр");
-        products[3] = new SimpleProduct(450, "телёнок");
-        products[4] = new SimpleProduct(500, "печенье");
-        products[5] = new SimpleProduct(90_009_666, "яблоко Эдема");
-    }
-
     private static void print(Product[] products) {
         System.out.println("\nApp.print");
         System.out.println("Список продуктов:");
         for (Product product : products) {
-            System.out.println(product);
+            if (product != null) {
+                System.out.println(product);
+            }
+
         }
     }
 }

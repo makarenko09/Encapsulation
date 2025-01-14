@@ -72,6 +72,14 @@ public class ProductBasket {
         }
         return false;
     }
+    public void checkProduct(String name) {
+        boolean checked = checkProductOnBasket(name);
+        if (checked) {
+            System.out.println("Продукт: '" + name + "' есть в корзине, " + checked);
+        } else {
+            System.out.println("Продукт: '" + name + "' отсутствует в корзине, " + checked);
+        }
+    }
 
     public void clearBasket() {
         for (int i = 0; i < products.length; i++) {
