@@ -30,16 +30,6 @@ public class Article implements Searchable {
 
     @Override
     public String toString() {
-        return name + title;
+        return name +"\n"+ title;
     }
 }
-
-//    static String getContentType(Integer types) {
-//        return String.valueOf(types instanceof Integer);
-//    }
-//    static String getContentType(Object types) {
-//        return String.valueOf(types instanceof Object);
-//    }
-//    static String getContentType(String types) {
-//                return String.valueOf(types instanceof String);
-//    }
