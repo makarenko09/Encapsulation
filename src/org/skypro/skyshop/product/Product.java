@@ -1,6 +1,6 @@
 package org.skypro.skyshop.product;
 
-import org.skypro.skyshop.Searchable;
+import org.skypro.skyshop.search.Searchable;
 
 public abstract class Product implements Searchable {
     protected String name;
@@ -10,6 +10,16 @@ public abstract class Product implements Searchable {
         if (this.name.length() < 2 || this.name.length() > 150) {
             throw new IllegalArgumentException("имя товара должно быть от 2 до 20 символов");
         }
+    }
+
+    @Override
+    public String getContentType() {
+        return "PRODUCT";
+    }
+
+    @Override
+    public String searchable() {
+        return toString();
     }
 
     @Override

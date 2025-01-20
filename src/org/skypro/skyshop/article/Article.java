@@ -1,6 +1,6 @@
 package org.skypro.skyshop.article;
 
-import org.skypro.skyshop.Searchable;
+import org.skypro.skyshop.search.Searchable;
 
 public class Article implements Searchable {
     private String name;
@@ -26,6 +26,16 @@ public class Article implements Searchable {
 
     public String getTitle() {
         return this.title;
+    }
+
+    @Override
+    public String getContentType() {
+        return "ARTICLE";
+    }
+
+    @Override
+    public String searchable() {
+        return toString();
     }
 
     @Override
