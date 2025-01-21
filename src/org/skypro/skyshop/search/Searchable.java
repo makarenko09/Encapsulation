@@ -2,14 +2,12 @@ package org.skypro.skyshop.search;
 
 public interface Searchable {
 
-    String searchTerm(String request);
+    String getSearchTerm();
+
+    String getSearchContentType();
 
     default String getStringRepresentation() {
-        return this.getClass().getSimpleName() + "-" + searchable();
+        return this.getClass().getSimpleName() + "-" + getSearchContentType();
     }
-
-    String getContentType();
-
-    String searchable();
 
 }

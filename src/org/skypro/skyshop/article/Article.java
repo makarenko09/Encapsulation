@@ -12,8 +12,8 @@ public class Article implements Searchable {
     }
 
     @Override
-    public String searchTerm(String nameOrTitle) {
-        if (nameOrTitle == null) {
+    public String getSearchTerm() {
+        if (name == null || title == null) {
             throw new IllegalArgumentException("Имя продукта не может быть null");
         }
         return name + " " + " \n"
@@ -29,13 +29,8 @@ public class Article implements Searchable {
     }
 
     @Override
-    public String getContentType() {
+    public String getSearchContentType() {
         return "ARTICLE";
-    }
-
-    @Override
-    public String searchable() {
-        return toString();
     }
 
     @Override
