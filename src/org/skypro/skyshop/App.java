@@ -15,11 +15,20 @@ public class App {
     private static final int fixIndexValueOfMethodToAddProduct = 600;
     private static int coast = 0;
     public static void main(String[] args) {
-        taskOne();
-        startDemo();
-        taskTwo();
-        taskThree();
+//        taskOne();
+//        startDemo();
+//        taskTwo();
+//        taskThree();
+        taskFour();
+    }
 
+    private static void taskFour() {
+        Searchable nullProduct = new SimpleProduct(-1, null);
+        Searchable nullProductTwo = new SimpleProduct(100, "    ");
+        Searchable nullProductThree = new SimpleProduct(100, "");
+        SearchEngine searchEngine = new SearchEngine();
+        //        searchEngine.add(nullProduct);
+//               searchEngine.add(new SimpleProduct(100, "Лёпадо\u00ADтэмахо\u00ADсэляхо\u00ADгалео\u00ADкранио\u00ADлейпсано\u00ADдрим\u00ADюпо\u00ADтриммато\u00ADсильфио\u00ADкарабо\u00ADмэлито\u00ADкатакэхю\u00ADмэно\u00ADкихль\u00ADэпи\u00ADкоссюфо\u00ADфатто\u00ADпэристэр\u00ADалектрюон\u00ADопто\u00ADкэфаллио\u00ADкинклё\u00ADпэлейо\u00ADлягоо\u00ADсирайо\u00ADбафэ\u00ADтрагано\u00ADптэрю́гон "));
     }
 
     private static void taskThree() {

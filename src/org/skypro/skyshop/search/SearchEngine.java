@@ -20,7 +20,7 @@ public class SearchEngine {
         Searchable[] results = new Searchable[MAX_RESPONSE];
         int count = 0;
         for (Searchable searchable : searchables) {
-            if (searchable != null && searchable.searchTerm(queryRequest).contains(queryRequest)) {
+            if (searchable != null && searchable.searchTerm().contains(queryRequest)) {
                 results[count++] = searchable;
             }
             if (count == MAX_RESPONSE) break;
