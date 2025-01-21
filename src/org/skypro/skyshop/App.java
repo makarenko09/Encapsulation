@@ -15,9 +15,9 @@ public class App {
     private static final int fixIndexValueOfMethodToAddProduct = 600;
     private static int coast = 0;
     public static void main(String[] args) {
-        taskOne();
-        startDemo();
-        taskTwo();
+//        taskOne();
+//        startDemo();
+//        taskTwo();
         taskThree();
 
     }
