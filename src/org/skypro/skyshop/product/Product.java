@@ -7,26 +7,36 @@ public abstract class Product implements Searchable {
 
 
     public Product(String name) throws RuntimeException {
-        try {
             this.name = name;
+        try {
             getExcWithName();
-        } catch (ExceptionOfNullInName | ExceptionOutFromRangeOfValueSumSymbolInStringName | ExceptionDangerOfValueSymbolInStringName e) {
-            System.out.println(e);
+        } catch (NullPointerException | IllegalArgumentException e) {
             System.out.println("ProductOnConstructor.ExceptionOfName");
+            System.out.println(e);
         }
     }
 
-    private void getExcWithName () throws ExceptionOfNullInName, ExceptionOutFromRangeOfValueSumSymbolInStringName, ExceptionDangerOfValueSymbolInStringName {
+    private void getExcWithName() {
         if (name == null) {
             System.out.println("Product.ExceptionOfNullInName");
-            throw new ExceptionOfNullInName();
+            System.out.println("Exc.ExceptionOfNullInName.toString" + ": недопустимое значение Null - " + name);
+            throw new NullPointerException(name);
         }
-        ExceptionOutFromRangeOfValueSumSymbolInStringName e = new ExceptionOutFromRangeOfValueSumSymbolInStringName(name);
-        e.getExcDangerValueFromNameOfProduct();
-        System.out.println("Product.getOutForm2and20");
-        ExceptionDangerOfValueSymbolInStringName e1 = new ExceptionDangerOfValueSymbolInStringName(name);
-        e1.getExcSpace();
-        System.out.println("Product.getExcWithSpace");
+        if (this.name.length() < 2 || this.name.length() > 20) {
+            System.out.println("Product.getOutForm2and20");
+            System.out.println("Exc.OutFromRangeOfValueSumSymbolInStringName.toString{" +
+                    "name='" + name + '\'' + "- имя товара должно быть от 2 до 20 символов\"" +
+                    '}');
+            throw new IllegalArgumentException(name);
+        }
+
+        if (name.isBlank()) {
+            System.out.println("Product.getExcWithSpace");
+            System.out.println("Exc.DangerOfValueSymbolInStringName.toString{" +
+                    "name='" + name + "' - неправильное название для продукта.\"" + '\'' +
+                    '}');
+            throw new IllegalArgumentException(name);
+        }
     }
 
     @Override
@@ -35,7 +45,7 @@ public abstract class Product implements Searchable {
     }
 
     @Override
-    public String searchTerm() {
+    public String getSearchTerm() {
         if (name == null) {
             throw new IllegalArgumentException("Имя продукта не может быть null");
         }

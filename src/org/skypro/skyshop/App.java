@@ -6,36 +6,22 @@ import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
-
-import java.util.Arrays;
 
 public class App {
     private static final int fixIndexValueOfMethodToAddProduct = 600;
     private static int coast = 0;
     public static void main(String[] args) {
-//        taskOne();
-//        startDemo();
-//        taskTwo();
-//        taskThree();
         taskFour();
+        taskFourPartTwoUseMethodFoSearch();
+        System.out.println("End.");
     }
 
-    private static void taskFour() {
-        Searchable nullProduct = new SimpleProduct(-1, null);
-        Searchable nullProductTwo = new SimpleProduct(100, "    ");
-        Searchable nullProductThree = new SimpleProduct(100, "");
+    private static void taskFourPartTwoUseMethodFoSearch() {
         SearchEngine searchEngine = new SearchEngine();
-        //        searchEngine.add(nullProduct);
-//               searchEngine.add(new SimpleProduct(100, "Лёпадо\u00ADтэмахо\u00ADсэляхо\u00ADгалео\u00ADкранио\u00ADлейпсано\u00ADдрим\u00ADюпо\u00ADтриммато\u00ADсильфио\u00ADкарабо\u00ADмэлито\u00ADкатакэхю\u00ADмэно\u00ADкихль\u00ADэпи\u00ADкоссюфо\u00ADфатто\u00ADпэристэр\u00ADалектрюон\u00ADопто\u00ADкэфаллио\u00ADкинклё\u00ADпэлейо\u00ADлягоо\u00ADсирайо\u00ADбафэ\u00ADтрагано\u00ADптэрю́гон "));
-    }
-
-    private static void taskThree() {
-        System.out.println("#####\n#####\n#####\n#####\n#####" +
-                "\n#####\n!Создайте один объект типа SearchEngine " +
-                "и добавьте в него все товары, которые создаются для проверки других методов....");
-        SearchEngine searchEngine = new SearchEngine();
+        Searchable egg = new SimpleProduct(100, "яицо");
         searchEngine.add(new SimpleProduct(100, "яицо"));
         searchEngine.add(new SimpleProduct(146, "milk"));
         searchEngine.add(new SimpleProduct(15_000, "МОЁТ"));
@@ -56,17 +42,42 @@ public class App {
         searchEngine.add(new Article("Нейропластичность: как мозг меняется в течение жизни", "Нейропластичность - удивительная способность мозга изменяться и адаптироваться на протяжении всей жизни. В этой статье мы рассмотрим механизмы нейропластичности и их значение для обучения, восстановления после травм и общего когнитивного здоровья."));
         searchEngine.add(new Article("Блокчейн: за пределами криптовалют", "Хотя блокчейн наиболее известен как технология, лежащая в основе криптовалют, его потенциал выходит далеко за рамки финансового сектора. Эта статья исследует инновационные применения блокчейна в различных отраслях, от управления цепочками поставок до защиты авторских прав."));
         searchEngine.add(new Article("Генная инженерия: этические вопросы и перспективы", "Генная инженерия открывает беспрецедентные возможности для лечения заболеваний и улучшения качества жизни. Однако она также поднимает серьезные этические вопросы. В этой статье мы рассмотрим текущее состояние генной инженерии, ее потенциальные применения и связанные с ней этические дилеммы."));
+        searchEngine.add(new SimpleProduct(34, "Гематоген"));
         searchEngine.add(new Article("Возобновляемые источники энергии: путь к устойчивому будущему", "Переход к возобновляемым источникам энергии является ключевым фактором в борьбе с изменением климата и обеспечении устойчивого развития. Эта статья анализирует текущее состояние и перспективы развития различных видов возобновляемой энергии, включая солнечную, ветровую и геотермальную."));
         searchEngine.add(new Article("Психология социальных сетей: влияние на общество", "Социальные сети стали неотъемлемой частью нашей жизни, но их влияние на психологическое здоровье и социальные взаимодействия остается предметом интенсивных исследований. В этой статье мы рассмотрим как позитивные, так и негативные аспекты использования социальных сетей."));
         searchEngine.add(new Article("Космический туризм: новая эра исследования космоса", "Космический туризм перестает быть научной фантастикой и становится реальностью. Эта статья исследует текущее состояние индустрии космического туризма, технологические достижения, делающие его возможным, и потенциальные последствия для будущего космических исследований."));
         searchEngine.add(new Article("Биомимикрия: инновации, вдохновленные природой", "Биомимикрия - это подход к инновациям, который ищет устойчивые решения, подражая природным образцам и стратегиям. В этой статье мы рассмотрим, как принципы биомимикрии применяются в различных областях, от архитектуры до робототехники, и как это может помочь в решении глобальных проблем."));
 
-        System.out.println("Search results :");
-        System.out.println(Arrays.toString(searchEngine.search("яицо")));
-        System.out.println(Arrays.toString(searchEngine.search("Капуста зеленая")));
-        System.out.println(Arrays.toString(searchEngine.search("Икра")));
-        System.out.println(Arrays.toString(searchEngine.search("milk")));
-        System.out.println(Arrays.toString(searchEngine.search("интеллект")));
+        System.out.println("родемонстрируйте в методе \n" +
+                "main\n" +
+                " новый метод поиска в двух сценариях:\n" +
+                "\n" +
+                "когда нужный объект существует,\n" +
+                "когда метод выбрасывает исключение.\n" +
+                "Обработайте исключение и выведите сообщения об ошибке.");
+        try {
+            System.out.println(searchEngine.searchResults("Ген"));
+            System.out.println(searchEngine.searchResults("Арматура"));
+        } catch (BestResultNotFound e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void taskFour() {
+        try {
+            Product nullProduct = new SimpleProduct(-1, null);
+            Product йогурт = new SimpleProduct(-1, "йогурт");
+            Product nullProductTwo = new SimpleProduct(110, "3");
+            Product молоко = new SimpleProduct(200, "молоко");
+            Product nullProductThree = new SimpleProduct(100, "");
+            Product bread = new DiscountedProduct("хлеб", 0, 8);
+            Product bread2 = new DiscountedProduct("хлеб", 240, 178);
+            Product bread3 = new DiscountedProduct("хлеб", 20, 60);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+            System.out.println("search err is end.");
+        }
+
     }
 
     private static void taskTwo() {

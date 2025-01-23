@@ -3,16 +3,19 @@ package org.skypro.skyshop.product;
 public class SimpleProduct extends Product {
     private int price;
 
-    public SimpleProduct(int price, String name) throws RuntimeException {
+    public SimpleProduct(int price, String name) {
         super(name);
-        try {
         this.price = price;
-            if (this.price <= 0) {
-            throw new IllegalArgumentException("цена не может быть отрицательной или нулём");
-        }
+        try {
+            if (price == 0 || price < 0) {
+                throw new IllegalArgumentException();
+            }
         } catch (IllegalArgumentException e) {
-            System.out.println("SimpleProduct.IllegalArgumentException");
-            System.out.println(e);
+            System.err.println("SimpleProductOnConstructor.ExceptionOfPrice: " + price);
+            System.out.println("Exc.Price.toString{" +
+                    "price=" + price +
+                    '}');
+            System.err.println(e);
         }
     }
 
