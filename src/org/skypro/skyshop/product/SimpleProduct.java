@@ -3,22 +3,17 @@ package org.skypro.skyshop.product;
 public class SimpleProduct extends Product {
     private int price;
 
-    public SimpleProduct(int price, String name) {
+    public SimpleProduct(int price, String name) throws IllegalArgumentException {
         super(name);
         this.price = price;
-        try {
-            if (price == 0 || price < 0) {
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e) {
-            System.err.println("SimpleProductOnConstructor.ExceptionOfPrice: " + price);
-            System.out.println("Exc.Price.toString{" +
+
+        if (price == 0 || price < 0) {
+            System.out.println("Price.Exc.ZeroDownANDZero.toString{" +
                     "price=" + price +
                     '}');
-            System.err.println(e);
+            throw new IllegalArgumentException();
         }
-    }
-
+        }
     @Override
     public boolean isSpecial() {
         return false;

@@ -14,7 +14,7 @@ public class Article implements Searchable {
     @Override
     public String getSearchTerm() {
         if (title == null || name == null) {
-            throw new IllegalArgumentException("Имя продукта не может быть null");
+            throw new IllegalArgumentException("Имя и/или содержание статьи не может быть null");
         }
         return name + " " + " \n"
                 + title;
