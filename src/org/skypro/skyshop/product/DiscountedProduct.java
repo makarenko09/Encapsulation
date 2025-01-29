@@ -4,27 +4,22 @@ public class DiscountedProduct extends Product {
     private int basicPrice;
     private int discountInTargetCurrencies;
 
-    public DiscountedProduct(String name, int basicPrice, int discountInTargetCurrencies) {
+    public DiscountedProduct(String name, int basicPrice, int discountInTargetCurrencies) throws IllegalArgumentException {
         super(name);
         this.discountInTargetCurrencies = discountInTargetCurrencies;
         this.basicPrice = basicPrice;
-        try {
-            if (basicPrice < 0) {
-                System.out.println("Exc.Price.toString{" +
-                        "price=" + basicPrice +
-                        '}');
-                throw new IllegalArgumentException(String.valueOf(basicPrice));
-            }
-            if ((discountInTargetCurrencies < 0 || discountInTargetCurrencies > 100)) {
-                System.out.println("ExceptionFixPrice{" +
-                        "discountInTargetCurrencies=" + discountInTargetCurrencies +
-                        ", price=" + basicPrice +
-                        '}');
-                throw new IllegalArgumentException(String.valueOf(discountInTargetCurrencies));
-            }
-                } catch (IllegalArgumentException e) {
-            System.out.println("DiscountedProductOnConstructor.ExceptionOfPrice");
-            System.out.println(e);
+        if (basicPrice < 0) {
+            System.out.println("BasicPrice.Exc.ZeroDown.toString{" +
+                    "price=" + basicPrice +
+                    '}');
+            throw new IllegalArgumentException("Цена не может быть ниже нуля");
+        }
+        if ((discountInTargetCurrencies < 0 || discountInTargetCurrencies > 100)) {
+            System.out.println("Discount.Exc.Value{" +
+                    "discount=" + discountInTargetCurrencies +
+                    ", price=" + basicPrice +
+                    '}');
+            throw new IllegalArgumentException("Скидка не может быть ниже 0 и больше 100-та");
         }
     }
 

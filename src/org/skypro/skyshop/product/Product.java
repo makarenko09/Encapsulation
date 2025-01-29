@@ -6,37 +6,27 @@ public abstract class Product implements Searchable {
     protected String name;
 
 
-    public Product(String name) throws RuntimeException {
+    public Product(String name) throws NullPointerException, IllegalArgumentException {
             this.name = name;
-        try {
-            getExcWithName();
-        } catch (NullPointerException | IllegalArgumentException e) {
-            System.out.println("ProductOnConstructor.ExceptionOfName");
-            System.out.println(e);
-        }
-    }
-
-    private void getExcWithName() {
         if (name == null) {
-            System.out.println("Product.ExceptionOfNullInName");
-            System.out.println("Exc.ExceptionOfNullInName.toString" + ": недопустимое значение Null - " + name);
-            throw new NullPointerException(name);
+            System.out.println("Product.getNullInName");
+            System.out.println("Name.Exc.Null.toString{" +
+                    "name='" + name + '}');
+            throw new NullPointerException("Имя продукта не может быть null");
         }
         if (this.name.length() < 2 || this.name.length() > 20) {
-            System.out.println("Product.getOutForm2and20");
-            System.out.println("Exc.OutFromRangeOfValueSumSymbolInStringName.toString{" +
-                    "name='" + name + '\'' + "- имя товара должно быть от 2 до 20 символов\"" +
-                    '}');
-            throw new IllegalArgumentException(name);
+            System.out.println("Product.getRangeInName");
+            System.out.println("Name.Exc.Range.toString{" +
+                    "name='" + name + '}');
+            throw new IllegalArgumentException("Имя продукта должно быть от 2 до 20 символов");
+        }
+        if (name.isBlank()) {
+            System.out.println("Product.getSpaceInName");
+            System.out.println("Name.Exc.Value.toString{" +
+                    "name='" + name +   '}');
+            throw new IllegalArgumentException("Не должно быть пробелов взаместо имени продукта");
         }
 
-        if (name.isBlank()) {
-            System.out.println("Product.getExcWithSpace");
-            System.out.println("Exc.DangerOfValueSymbolInStringName.toString{" +
-                    "name='" + name + "' - неправильное название для продукта.\"" + '\'' +
-                    '}');
-            throw new IllegalArgumentException(name);
-        }
     }
 
     @Override
