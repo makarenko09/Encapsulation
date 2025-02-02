@@ -15,9 +15,39 @@ public class App {
     private static int coast = 0;
 
     public static void main(String[] args) {
-        taskFour();
-        taskFourPartTwoUseMethodFoSearch();
-        System.out.println("End.");
+        System.out.println("\nApp.main\n");
+        taskFive();
+        System.out.println("\nEnd.\n");
+    }
+
+    private static void taskFive() {
+        Product[] productsDemo = new Product[10];
+        ProductBasket basketDemo = new ProductBasket();
+        Product simpleProduct = new SimpleProduct(200, "упаковка яиц");
+        productsDemo[0] = new SimpleProduct(12, "Зубная палочка");
+        productsDemo[2] = new SimpleProduct(12, "Зубная палочка");
+        basketDemo.addProduct(simpleProduct);
+        productsDemo[5] = new SimpleProduct(12, "Зубная палочка");
+        basketDemo.addProduct(productsDemo[0]);
+        basketDemo.addProduct(productsDemo[0]);
+        basketDemo.addProduct(productsDemo[0]);
+        basketDemo.addProduct(new SimpleProduct(50, "пачка соли пов."));
+        basketDemo.printBasket();
+        System.out.println("\n!Удалить существующий продукт из корзины...");
+        basketDemo.deleteProductFromBasket("Пачка соли пов.");
+        basketDemo.deleteProductFromBasket("Упаковка яиц");
+        basketDemo.printBasket();
+        System.out.println("\n!Вывести удаленные продукты на экран....");
+        System.out.println(basketDemo.deleteProductFromBasket("Зубная палочка"));
+        basketDemo.printBasket();
+        System.out.println("\n!Удалить несуществующий продукт...");
+        System.out.println(basketDemo.deleteProductFromBasket("Коготь дракона"));
+        System.out.println("\n!Проверить, что список удаленных продуктов пустой и вывести сообщение “Список пуст”...");
+        System.out.println(basketDemo.deleteProductFromBasket("654"));
+        System.out.println(basketDemo.deleteProductFromBasket("0"));
+        System.out.println(basketDemo.deleteProductFromBasket(""));
+        System.out.println("\n!Вывести содержимое корзины на экран.");
+        basketDemo.printBasket();
     }
 
     private static void taskFourPartTwoUseMethodFoSearch() {
@@ -54,7 +84,7 @@ public class App {
 
             System.out.println(searchEngine.searchResults("Ген"));
             System.out.println(searchEngine.searchResults("Арматура"));
-        } catch (IllegalArgumentException | NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
             System.out.println("search err is end.");
         } catch (BestResultNotFound e) {
@@ -83,12 +113,12 @@ public class App {
         System.out.println("#####\n#####\n#####\n#####\n#####\n#####\n!Создайте в методе несколько товаров специальных типов вместо " +
                 "SimpleProduct...");
         Product[] productsDemo = new Product[10];
-        productsDemo[0] = new DiscountedProduct("Килька в томатном соусе", 150, 101);
+        productsDemo[0] = new DiscountedProduct("Килька в томате", 150, 100);
         productsDemo[1] = new DiscountedProduct("Икра красная", 2700, 26);
         productsDemo[2] = new SimpleProduct(50, "Капуста зеленая");
         productsDemo[3] = new SimpleProduct(280, "Перец острый-Чили");
-        productsDemo[6] = new FixPriceProduct("Банка пива ж/б 0.5л. «ОХОТА КРЕПКАЯ»");
-        productsDemo[7] = new FixPriceProduct("Лимонад Макеевский с/б 0.45л. «Клюква»");
+        productsDemo[6] = new FixPriceProduct("Банка пива «ОХОТА»");
+        productsDemo[7] = new FixPriceProduct("Лимонад Макеевский");
         productsDemo[4] = new DiscountedProduct("Фигурка Альтаира", 18_000000, 99);
         ProductBasket newBasketDemo = new ProductBasket();
         newBasketDemo.addProduct(productsDemo[0]);

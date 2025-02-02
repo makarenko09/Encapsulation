@@ -6,13 +6,13 @@ public abstract class Product implements Searchable {
     protected String name;
 
 
-    public Product(String name) throws NullPointerException, IllegalArgumentException {
+    public Product(String name) throws IllegalArgumentException {
             this.name = name;
         if (name == null) {
             System.out.println("Product.getNullInName");
             System.out.println("Name.Exc.Null.toString{" +
                     "name='" + name + '}');
-            throw new NullPointerException("Имя продукта не может быть null");
+            throw new IllegalArgumentException("Имя продукта не может быть null");
         }
         if (this.name.length() < 2 || this.name.length() > 20) {
             System.out.println("Product.getRangeInName");
