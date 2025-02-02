@@ -48,21 +48,18 @@ public class ProductBasket {
     }
 
     public List<Product> deleteProductFromBasket(String name) {
-//        SearchEngine searchEngine = new SearchEngine();
-//        searchEngine.search(name);
-        List<Product> removeNameList = new LinkedList<Product>();
+        List<Product> removeNameList = new LinkedList<>();
         if (productsListT.size() == 0) {
                 System.out.println("Cписок пуст.");
-
             return removeNameList;
         }
         Iterator<Product> iterator = productsListT.iterator();
-//        for (Product product : productsListT) {
+
         while ((iterator.hasNext())) {
                Product element = iterator.next();
             if (element.getName().equalsIgnoreCase(name)) {
                 removeNameList.add(element);
-//                productsListT.remove(element);
+
                 iterator.remove();
                 System.out.println("Продукт: " + name + " удален из корзины");
                 count--;
@@ -71,23 +68,6 @@ public class ProductBasket {
 
         return removeNameList;
     }
-
-//    public void addProduct(Product product) {
-//        if (count >= MAX_PRODUCTS) {
-//            System.out.println("Корзина заполнена, невозможно добавить продукт: " + product);
-//            return;
-//        }
-//        if (product == null) {
-//            System.out.println("Нельзя добавить null-продукт");
-//            return;
-//        }
-//
-//        productsList.add(count,product);
-//        count++;
-//        System.out.println("Номер продукта: " + productsList.get(count) + " - продукт добавлен : " + product);
-//        System.out.println(product.isSpecial());
-//    }
-
 
     public int takePay() {
         int sumToPay = 0;
@@ -127,10 +107,10 @@ public class ProductBasket {
         count = 0;
     }
 
-//    @Override
-//    public String toString() {
-//        return "ProductBasket{" +
-//                "products=" + Arrays.toString(products) +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "ProductBasket{" +
+                "products=" + productsListT +
+                '}';
+    }
 }

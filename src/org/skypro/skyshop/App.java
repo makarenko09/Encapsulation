@@ -48,6 +48,7 @@ public class App {
         System.out.println(basketDemo.deleteProductFromBasket(""));
         System.out.println("\n!Вывести содержимое корзины на экран.");
         basketDemo.printBasket();
+        taskFourPartTwoUseMethodFoSearch();
     }
 
     private static void taskFourPartTwoUseMethodFoSearch() {
@@ -78,7 +79,16 @@ public class App {
             searchEngine.add(new Article("Космический туризм: новая эра исследования космоса", "Космический туризм перестает быть научной фантастикой и становится реальностью. Эта статья исследует текущее состояние индустрии космического туризма, технологические достижения, делающие его возможным, и потенциальные последствия для будущего космических исследований."));
             searchEngine.add(new Article("Биомимикрия: инновации, вдохновленные природой", "Биомимикрия - это подход к инновациям, который ищет устойчивые решения, подражая природным образцам и стратегиям. В этой статье мы рассмотрим, как принципы биомимикрии применяются в различных областях, от архитектуры до робототехники, и как это может помочь в решении глобальных проблем."));
 
-            System.out.println("родемонстрируйте в методе main новый метод поиска в двух сценариях: " +
+            System.out.println("!Демонстрация поиска выбранного слова");
+            searchEngine.search("яицо");
+            System.out.println("--");
+            System.out.println(searchEngine.search("яицо"));
+            System.out.println("--");
+            System.out.println(searchEngine.search("яицо"));
+            System.out.println(searchEngine.search("молоко"));
+            System.out.println(searchEngine.search(" "));
+
+            System.out.println("!Продемонстрируйте в методе main новый метод поиска в двух сценариях: " +
                     "когда нужный объект существует, когда метод выбрасывает исключение. " +
                     "Обработайте исключение и выведите сообщения об ошибке.");
 
