@@ -35,16 +35,14 @@ public class ProductBasket {
 
     public void printBasket() {
         System.out.println("\nProductBasket.printBasket");
-        int size = productsListT.size();
-
-        if (size == 0 /*|| productsList.get(0) == null*/) {
+        if (productsListT.size() == 0) {
             System.out.println("«В корзине пусто».");
-        } else {
+            return;
+        }
             for (Product product : productsListT) {
                 System.out.println(product);
             }
             System.out.println("Итого: <" + takePay() + ">");
-        }
     }
 
     public List<Product> deleteProductFromBasket(String name) {

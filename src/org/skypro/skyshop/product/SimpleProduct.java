@@ -3,7 +3,7 @@ package org.skypro.skyshop.product;
 public class SimpleProduct extends Product {
     private int price;
 
-    public SimpleProduct(int price, String name) throws IllegalArgumentException {
+    public SimpleProduct(int price, String name) {
         super(name);
         this.price = price;
 

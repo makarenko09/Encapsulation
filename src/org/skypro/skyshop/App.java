@@ -15,6 +15,11 @@ public class App {
     private static int coast = 0;
 
     public static void main(String[] args) {
+        taskOne();
+        taskTwo();
+        startDemo();
+        taskFour();
+        taskFourPartTwoUseMethodFoSearch();
         System.out.println("\nApp.main\n");
         taskFive();
         System.out.println("\nEnd.\n");

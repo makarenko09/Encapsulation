@@ -56,16 +56,15 @@ public class SearchEngine {
         int maxFound = 0;
         Searchable bestResult = null;
         for (Searchable searchable : searchablesListT) {
-            try {
-                String strOrig = searchable.getSearchTerm().toLowerCase();
+
+            String strOrig = searchable.getSearchTerm().toLowerCase();
                 String subStringOrig = search.toLowerCase();
                 score = resultFullyFound(strOrig, subStringOrig);
                 if (score > maxFound) {
                     maxFound = score;
                     bestResult = searchable;
                 }
-            } catch (NullPointerException ignored) {
-            }
+
         }
         if (bestResult == null) {
             throw new BestResultNotFound(search);

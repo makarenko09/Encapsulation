@@ -9,15 +9,16 @@ public class Article implements Searchable {
     public Article(String name, String title) {
         this.name = name;
         this.title = title;
-    }
-
-    @Override
-    public String getSearchTerm() {
         if (title == null || name == null) {
             System.out.println("Article.Exc.Null.toString{" +
                     "name=" + name + ", title= " + title + '}');
             throw new IllegalArgumentException("Имя и/или содержание статьи не может быть null");
         }
+    }
+
+    @Override
+    public String getSearchTerm() {
+
         return name + " " + " \n"
                 + title;
     }

@@ -6,8 +6,12 @@ public abstract class Product implements Searchable {
     protected String name;
 
 
-    public Product(String name) throws IllegalArgumentException {
+    public Product(String name) {
             this.name = name;
+        ifException();
+    }
+
+    private void ifException() {
         if (name == null) {
             System.out.println("Product.getNullInName");
             System.out.println("Name.Exc.Null.toString{" +
@@ -26,7 +30,6 @@ public abstract class Product implements Searchable {
                     "name='" + name +   '}');
             throw new IllegalArgumentException("Не должно быть пробелов взаместо имени продукта");
         }
-
     }
 
     @Override
@@ -36,9 +39,6 @@ public abstract class Product implements Searchable {
 
     @Override
     public String getSearchTerm() {
-        if (name == null) {
-            throw new IllegalArgumentException("Имя продукта не может быть null");
-        }
         return name;
 
     }

@@ -4,7 +4,7 @@ public class DiscountedProduct extends Product {
     private int basicPrice;
     private int discountInTargetCurrencies;
 
-    public DiscountedProduct(String name, int basicPrice, int discountInTargetCurrencies) throws IllegalArgumentException {
+    public DiscountedProduct(String name, int basicPrice, int discountInTargetCurrencies) {
         super(name);
         this.discountInTargetCurrencies = discountInTargetCurrencies;
         this.basicPrice = basicPrice;
