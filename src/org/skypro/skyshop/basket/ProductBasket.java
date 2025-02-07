@@ -17,7 +17,7 @@
             //        productsListT.add(product);
             count++;
             System.out.println("Номер продукта: " + count + " - продукт добавлен : " + product);
-            System.out.println(product.isSpecial());
+            System.out.println("Особый продукт: return " + product.isSpecial());
         }
 
         public void printBasket() {
@@ -33,36 +33,20 @@
             System.out.println("Итого: <" + takePay() + ">");
         }
 
-//        public int takePay() {
-//            int sumToPay = 0;
-//
-//            Iterator<List<Product>> iteratorProductMap = productMap.values().iterator();
-//            while (iteratorProductMap.hasNext()) {
-//                List<Product> payProductList = payProductList = iteratorProductMap.next();
-//                Iterator<Product> iteratorList = payProductList.iterator();
-//
-//                while (iteratorList.hasNext()) {
-//                    Product element = iteratorList.next();
-//                    sumToPay += element.getPrice();
-//
-//                }
-//            }
-//            return sumToPay;
-//        }
-public int takePay() {
-    int sumToPay = 0;
+        public int takePay() {
+            int sumToPay = 0;
 
-    Iterator<List<Product>> iteratorProductMap = productMap.values().iterator();
-    while (iteratorProductMap.hasNext()) {
-        List<Product> payProductList = iteratorProductMap.next();
+            Iterator<List<Product>> iteratorProductMap = productMap.values().iterator();
+            while (iteratorProductMap.hasNext()) {
+                List<Product> payProductList = iteratorProductMap.next();
 
-        for (Product element : payProductList) {
-            sumToPay += element.getPrice();
+                for (Product element : payProductList) {
+                    sumToPay += element.getPrice();
 
+                }
+            }
+            return sumToPay;
         }
-    }
-    return sumToPay;
-}
 
         public boolean checkProductOnBasket(String name) {
             for (List<Product> productList : productMap.values()) {
@@ -78,143 +62,68 @@ public int takePay() {
         public void checkProduct(String name) {
             boolean checked = checkProductOnBasket(name);
             if (checked) {
-                System.out.println("Продукт: '" + name + "' есть в корзине, " + checked);
+                System.out.println("Продукт: '" + name + "' есть в корзине, return " + checked);
             } else {
-                System.out.println("Продукт: '" + name + "' отсутствует в корзине, " + checked);
+                System.out.println("Продукт: '" + name + "' отсутствует в корзине, return " + checked);
             }
         }
 
         public void clearBasket() {
+            System.out.println("ProductBasket.clearBasket");
             Iterator<List<Product>> iteratorProductMap = productMap.values().iterator();
             while (iteratorProductMap.hasNext()) {
                 List<Product> payProductList = payProductList = iteratorProductMap.next();
                 iteratorProductMap.remove();
             }
-                count = 0;
+            count = 0;
         }
-//        public List<Product> deleteProductFromBasket(String name) {
-//                            List<Product> removeNameList = new LinkedList<>();
-//                            if (productsListT.size() == 0) {
-//                                System.out.println("Cписок пуст.");
-//                                return removeNameList;
-//                            }
-//                            Iterator<Product> iterator = productsListT.iterator();
-//
-//                            while ((iterator.hasNext())) {
-//                                Product element = iterator.next();
-//                                if (element.getName().equalsIgnoreCase(name)) {
-//                                    removeNameList.add(element);
-//
-//                                    iterator.remove();
-//                                    System.out.println("Продукт: " + name + " удален из корзины");
-//                                    count--;
-//                                }
-//                            }
-//
-//                            return removeNameList;
-//                        }
 
+                public List<Product> deleteProductFromBasket(String name) {
+                    System.out.println("ProductBasket.deleteProductFromBasket");
+                    List<Product> removeNameList = new LinkedList<>();
+                    checkProduct(name);
+
+                    if (productMap.size() == 0) {
+                        System.out.println("«В корзине пусто».");
+                        return removeNameList;
+                    }
+                    if (!checkProductOnBasket(name)) {
+                        return removeNameList;
+                    }
+                    Iterator<Map.Entry<String, List<Product>>> entryIterator = productMap.entrySet().iterator();
+                    while (entryIterator.hasNext()) {
+                        Map.Entry<String, List<Product>> entry = entryIterator.next();
+                        List<Product> productList = entry.getValue();
+
+                        Iterator<Product> productIterator = productList.iterator();
+                        while (productIterator.hasNext()) {
+                            Product product = productIterator.next();
+                            if (product.getName().equalsIgnoreCase(name)) {
+                                removeNameList.add(product);
+                                productIterator.remove();
+
+                            }
+                        }
+
+                        if (productList.isEmpty()) {
+                            entryIterator.remove();
+                        }
+                    }
+
+                    System.out.println("Удалено продуктов: " + removeNameList.size());
+                    return removeNameList;
+                }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            ProductBasket basket = (ProductBasket) o;
+            return Objects.equals(productMap, basket.productMap);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(productMap);
+        }
     }
-
-    //        class ProductBasketList extends ProductBasket {
-    //            private List<Product> productsListT;
-    //
-    //            @Override
-    //            public boolean equals(Object o) {
-    //                if (this == o) return true;
-    //                if (o == null || getClass() != o.getClass()) return false;
-    //                ProductBasketList that = (ProductBasketList) o;
-    //                return Objects.equals(productsListT, that.productsListT);
-    //            }
-    //
-    //            @Override
-    //            public int hashCode() {
-    //                return Objects.hashCode(productsListT);
-    //            }
-    //
-    //            public ProductBasketList() {
-    //                this.productsListT = new LinkedList<>();
-    //            }
-    //
-    //            public void printBasket() {
-    //                System.out.println("\nProductBasket.printBasket");
-    //
-    //                if (productsListT.size() == 0) {
-    //                    System.out.println("«В корзине пусто».");
-    //                    return;
-    //                }
-    //                for (Product product : productsListT) {
-    //                    System.out.println(product);
-    //                }
-    //                System.out.println("Итого: <" + takePay() + ">");
-    //            }
-    //
-    //            public List<Product> deleteProductFromBasket(String name) {
-    //                List<Product> removeNameList = new LinkedList<>();
-    //                if (productsListT.size() == 0) {
-    //                    System.out.println("Cписок пуст.");
-    //                    return removeNameList;
-    //                }
-    //                Iterator<Product> iterator = productsListT.iterator();
-    //
-    //                while ((iterator.hasNext())) {
-    //                    Product element = iterator.next();
-    //                    if (element.getName().equalsIgnoreCase(name)) {
-    //                        removeNameList.add(element);
-    //
-    //                        iterator.remove();
-    //                        System.out.println("Продукт: " + name + " удален из корзины");
-    //                        count--;
-    //                    }
-    //                }
-    //
-    //                return removeNameList;
-    //            }
-    //
-    //            public int takePay() {
-    //                int sumToPay = 0;
-    //                for (Product product : productsListT) {
-    //                    if (product != null) {
-    //                        sumToPay += product.getPrice();
-    //                    }
-    //                }
-    //                return sumToPay;
-    //            }
-    //
-    //            public boolean checkProductOnBasket(String name) {
-    //                if (name == null) {
-    //                    throw new IllegalArgumentException("Имя продукта не может быть null");
-    //                }
-    //
-    //                for (Product product : productsListT) {
-    //                    if (product != null && product.getName().equalsIgnoreCase(name)) {
-    //                        return true;
-    //                    }
-    //                }
-    //                return false;
-    //            }
-    //
-    //            public void checkProduct(String name) {
-    //                boolean checked = checkProductOnBasket(name);
-    //                if (checked) {
-    //                    System.out.println("Продукт: '" + name + "' есть в корзине, " + checked);
-    //                } else {
-    //                    System.out.println("Продукт: '" + name + "' отсутствует в корзине, " + checked);
-    //                }
-    //            }
-    //
-    //            public void clearBasket() {
-    //
-    //                productsListT.removeAll(productsListT);
-    //                count = 0;
-    //            }
-    //
-    //            @Override
-    //            public String toString() {
-    //                return "ProductBasket{" +
-    //                        "products=" + productsListT +
-    //                        '}';
-    //            }
-    //        }
-    //
-    //    }
