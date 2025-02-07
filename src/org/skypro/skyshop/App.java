@@ -15,14 +15,45 @@ public class App {
     private static int coast = 0;
 
     public static void main(String[] args) {
-        taskOne();
-        taskTwo();
-        startDemo();
-        taskFour();
-        taskFourPartTwoUseMethodFoSearch();
-        System.out.println("\nApp.main\n");
+        System.out.println("\nApp.main.5\n");
         taskFive();
+        System.out.println("\nApp.main.6\n");
+        taskSix();
         System.out.println("\nEnd.\n");
+    }
+
+    private static void taskSix() {
+        SearchEngine searchEngine = new SearchEngine();
+        Searchable egg = new SimpleProduct(100, "яицо");
+        searchEngine.add(egg);
+        searchEngine.add(new SimpleProduct(100, "яицо"));
+        searchEngine.add(new SimpleProduct(146, "milk"));
+        searchEngine.add(new SimpleProduct(15_000, "МОЁТ"));
+        searchEngine.add(new SimpleProduct(200, "молоко"));
+        searchEngine.add(new SimpleProduct(300, "сыр"));
+        searchEngine.add(new SimpleProduct(450, "телёнок"));
+        searchEngine.add(new SimpleProduct(500, "печенье"));
+        searchEngine.add(new DiscountedProduct("Икра красная", 2700, 26));
+        searchEngine.add(new SimpleProduct(50, "Капуста зеленая"));
+
+        System.out.println("!В классе SearchEngine метод search возвращает Map  где ключи — имена подходящих объектов Searchable  а значения — сами объекты...");
+        System.out.println(searchEngine.search("яицо"));
+
+        System.out.println(searchEngine.search("молоко"));
+        System.out.println(searchEngine.search(" "));
+        System.out.println(searchEngine.search("упаковка яиц"));
+        System.out.println("!В методе main продемонстрирован измененный метод search\n");
+        searchEngine.search("яицо");
+        System.out.println("--");
+        searchEngine.search("яицо");
+        System.out.println("--");
+        searchEngine.search("молоко");
+        System.out.println("--");
+        searchEngine.search(" ");
+
+        System.out.println("--");
+        searchEngine.search("упаковка яиц");
+        System.out.println("--");
     }
 
     private static void taskFive() {

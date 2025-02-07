@@ -1,46 +1,55 @@
 package org.skypro.skyshop.search;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
-    private List<Searchable> searchablesListT;
-    private static final int MAX_RESPONSE = 5;
-    private static final int MAX_SEARHOFRESPONSE = 6_000;
-    private int sizeArrayOfAddSearchable = 0;
+    private Map<String, List<Searchable>> searchablesMap;
 
     public SearchEngine() {
-        searchablesListT = new LinkedList<>();
+        searchablesMap = new LinkedHashMap<>();
+    }
+
+    public Map<String, List<Searchable>> search(String queryRequest) {
+        Map<String, List<Searchable>> result = new LinkedHashMap<>();
+        if (searchablesMap.size() == 0) {
+            System.out.println("Нет товаров доступных для поиска.");
+            return result;
+        }
+
+        Iterator<Map.Entry<String, List<Searchable>>> mapIterator = searchablesMap.entrySet().iterator();
+        while (mapIterator.hasNext()) {
+            Map.Entry<String, List<Searchable>> entry = mapIterator.next();
+            String searchName = entry.getKey();
+            List<Searchable> searchables = entry.getValue();
+
+            List<Searchable> matchingSearchables = new ArrayList<>();
+
+            Iterator<Searchable> listIterator = searchables.iterator();
+            while (listIterator.hasNext()) {
+                Searchable searchable = listIterator.next();
+                if (searchable.getSearchTerm().equalsIgnoreCase(queryRequest)) {
+                    matchingSearchables.add(searchable);
+
+                }
+            }
+
+            if (!(matchingSearchables.isEmpty())) {
+                result.put(searchName, matchingSearchables);
+                System.out.println("Поисковый запрос: '" + queryRequest + "' найден в " + searchName);
+            }
+        }
+
+        if (result.isEmpty()) {
+            System.out.println("Поисковый запрос: '" + queryRequest + "' не найден");
+        }
+
+        return result;
     }
 
     public void add(Searchable searchable) {
-        searchablesListT.add(searchable);
+        searchablesMap.computeIfAbsent(searchable.getSearchTerm(), k -> new ArrayList<>()).add(searchable);
     }
 
-    public List<Searchable> search(String queryRequest) {
-        if (searchablesListT.size() == 0) {
-            System.out.println("Нет товаров доступных для поиска.");
-            return searchablesListT;
-        }
-
-        List<Searchable> searchList = new LinkedList<>();
-        Iterator<Searchable> iterator = searchablesListT.iterator();
-        while ((iterator.hasNext())) {
-            Searchable element = iterator.next();
-            if (element.getSearchTerm().equalsIgnoreCase(queryRequest)) {
-                searchList.add(element);
-
-                System.out.println("Поисковый запрос: '" + queryRequest + "' найден");
-            }
-        }
-        if (searchList.size() == 0) {
-
-                System.out.println("Поисковый запрос: '" + queryRequest + "' не найден");
-
-        }
-        return searchList;
-    }
 
     private int resultFullyFound(String addedlyOrigOfSearch, String strOfSearch) {
         int x = addedlyOrigOfSearch.indexOf(strOfSearch);
@@ -55,15 +64,20 @@ public class SearchEngine {
         int score = 0;
         int maxFound = 0;
         Searchable bestResult = null;
-        for (Searchable searchable : searchablesListT) {
+        for (Map.Entry<String, List<Searchable>> entry : searchablesMap.entrySet()) {
 
-            String strOrig = searchable.getSearchTerm().toLowerCase();
+            List<Searchable> searchables = entry.getValue();
+            for (Searchable searchable : searchables) {
+
+                String strOrig = searchable.getSearchTerm().toLowerCase();
                 String subStringOrig = search.toLowerCase();
                 score = resultFullyFound(strOrig, subStringOrig);
                 if (score > maxFound) {
                     maxFound = score;
                     bestResult = searchable;
                 }
+
+            }
 
         }
         if (bestResult == null) {
@@ -72,4 +86,16 @@ public class SearchEngine {
         return bestResult;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchEngine that = (SearchEngine) o;
+        return Objects.equals(searchablesMap, that.searchablesMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(searchablesMap);
+    }
 }
