@@ -4,6 +4,7 @@ out/
 !**/src/test/**/out/
 *.iml
 .idea
+.run
 ### Eclipse ###
 .apt_generated
 .classpath
