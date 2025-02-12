@@ -7,7 +7,7 @@ public abstract class Product implements Searchable {
 
 
     public Product(String name) {
-            this.name = name;
+        this.name = name;
         ifException();
     }
 
@@ -27,7 +27,7 @@ public abstract class Product implements Searchable {
         if (name.isBlank()) {
             System.out.println("Product.getSpaceInName");
             System.out.println("Name.Exc.Value.toString{" +
-                    "name='" + name +   '}');
+                    "name='" + name + '}');
             throw new IllegalArgumentException("Не должно быть пробелов взаместо имени продукта");
         }
     }
@@ -44,7 +44,9 @@ public abstract class Product implements Searchable {
     }
 
     public abstract int getPrice();
+
     public abstract boolean isSpecial();
+
     public String getName() {
 
         if (name == null) {
@@ -54,6 +56,6 @@ public abstract class Product implements Searchable {
     }
 
     public String toString() {
-        return  "name='" + name + '\'';
+        return "name='" + name + '\'';
     }
 }

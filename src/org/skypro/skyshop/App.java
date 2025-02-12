@@ -17,6 +17,8 @@ public class App {
     public static void main(String[] args) {
         System.out.println("\nApp.main.5\n");
         taskFive();
+        System.out.println("\nApp.main.5.1\n");
+        taskFourPartTwoUseMethodFoSearch();
         System.out.println("\nApp.main.6\n");
         taskSix();
         System.out.println("\nEnd.\n");
@@ -61,16 +63,26 @@ public class App {
         ProductBasket basketDemo = new ProductBasket();
         Product simpleProduct = new SimpleProduct(200, "упаковка яиц");
         productsDemo[0] = new SimpleProduct(12, "Зубная палочка");
+        productsDemo[4] = (new DiscountedProduct("Икра красная", 2700, 26));
+        productsDemo[6] = (new FixPriceProduct("Сельдерей упаковка"));
+        productsDemo[6] = (new FixPriceProduct("Сельдерей упаковка"));
         productsDemo[2] = new SimpleProduct(12, "Зубная палочка");
         basketDemo.addProduct(simpleProduct);
         productsDemo[5] = new SimpleProduct(12, "Зубная палочка");
         basketDemo.addProduct(productsDemo[0]);
         basketDemo.addProduct(productsDemo[0]);
         basketDemo.addProduct(productsDemo[0]);
+        basketDemo.addProduct(productsDemo[4]);
+        basketDemo.addProduct(productsDemo[4]);
+        basketDemo.addProduct(productsDemo[4]);
+        basketDemo.addProduct(productsDemo[6]);
         basketDemo.addProduct(new SimpleProduct(50, "пачка соли пов."));
         basketDemo.printBasket();
         System.out.println("\n!Удалить существующий продукт из корзины...");
         basketDemo.deleteProductFromBasket("Пачка соли пов.");
+        basketDemo.deleteProductFromBasket("Икра красная");
+        basketDemo.printBasket();
+        basketDemo.deleteProductFromBasket("Сельдерей упаковка");
         basketDemo.deleteProductFromBasket("Упаковка яиц");
         basketDemo.printBasket();
         System.out.println("\n!Вывести удаленные продукты на экран....");
@@ -84,7 +96,10 @@ public class App {
         System.out.println(basketDemo.deleteProductFromBasket(""));
         System.out.println("\n!Вывести содержимое корзины на экран.");
         basketDemo.printBasket();
-        taskFourPartTwoUseMethodFoSearch();
+        basketDemo.clearBasket();
+        System.out.println(basketDemo.deleteProductFromBasket(""));
+
+
     }
 
     private static void taskFourPartTwoUseMethodFoSearch() {

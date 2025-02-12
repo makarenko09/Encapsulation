@@ -9,7 +9,7 @@ public class ProductBasket {
     private int count = 0;
 
     public ProductBasket() {
-        this.productMap = new HashMap<>();
+        productMap = new HashMap<>();
     }
 
     public void addProduct(Product product) {
@@ -30,17 +30,25 @@ public class ProductBasket {
 
         System.out.println(productMap);
 
+        int countSpecial = 0;
+        for (List<Product> productList : productMap.values()) {
+
+            for (Product product : productList) {
+                if (product != null && product.isSpecial()) {
+                    countSpecial++;
+                }
+            }
+
+        }
         System.out.println("Итого: <" + takePay() + ">");
+        System.out.println("Количество специальных товаров в корзине: " + countSpecial);
     }
 
     public int takePay() {
         int sumToPay = 0;
 
-        Iterator<List<Product>> iteratorProductMap = productMap.values().iterator();
-        while (iteratorProductMap.hasNext()) {
-            List<Product> payProductList = iteratorProductMap.next();
-
-            for (Product element : payProductList) {
+        for (List<Product> productList : productMap.values()) {
+            for (Product element : productList) {
                 sumToPay += element.getPrice();
 
             }
@@ -72,7 +80,7 @@ public class ProductBasket {
         System.out.println("ProductBasket.clearBasket");
         Iterator<List<Product>> iteratorProductMap = productMap.values().iterator();
         while (iteratorProductMap.hasNext()) {
-            List<Product> payProductList = payProductList = iteratorProductMap.next();
+            List<Product> payProductList = iteratorProductMap.next();
             iteratorProductMap.remove();
         }
         count = 0;
@@ -81,37 +89,17 @@ public class ProductBasket {
     public List<Product> deleteProductFromBasket(String name) {
         System.out.println("ProductBasket.deleteProductFromBasket");
         List<Product> removeNameList = new LinkedList<>();
-        checkProduct(name);
-
         if (productMap.size() == 0) {
             System.out.println("«В корзине пусто».");
             return removeNameList;
         }
         if (!checkProductOnBasket(name)) {
+            checkProduct(name);
             return removeNameList;
+        } else {
+
+            return productMap.remove(name);
         }
-        Iterator<Map.Entry<String, List<Product>>> entryIterator = productMap.entrySet().iterator();
-        while (entryIterator.hasNext()) {
-            Map.Entry<String, List<Product>> entry = entryIterator.next();
-            List<Product> productList = entry.getValue();
-
-            Iterator<Product> productIterator = productList.iterator();
-            while (productIterator.hasNext()) {
-                Product product = productIterator.next();
-                if (product.getName().equalsIgnoreCase(name)) {
-                    removeNameList.add(product);
-                    productIterator.remove();
-
-                }
-            }
-
-            if (productList.isEmpty()) {
-                entryIterator.remove();
-            }
-        }
-
-        System.out.println("Удалено продуктов: " + removeNameList.size());
-        return removeNameList;
     }
 
     @Override
