@@ -1,17 +1,65 @@
 package org.skypro.skyshop.product;
 
-public abstract class Product {
+import org.skypro.skyshop.search.Searchable;
+
+import java.util.Objects;
+
+public abstract class Product implements Searchable {
     protected String name;
+
 
     public Product(String name) {
         this.name = name;
-        if (this.name.length() < 2 || this.name.length() > 150) {
-            throw new IllegalArgumentException("имя товара должно быть от 2 до 20 символов");
+        ifException();
+    }
+
+    private void ifException() {
+        if (name == null) {
+            System.out.println("Product.getNullInName");
+            System.out.println("Name.Exc.Null.toString{" +
+                    "name='" + name + '}');
+            throw new IllegalArgumentException("Имя продукта не может быть null");
+        }
+        if (this.name.length() < 2 || this.name.length() > 20) {
+            System.out.println("Product.getRangeInName");
+            System.out.println("Name.Exc.Range.toString{" +
+                    "name='" + name + '}');
+            throw new IllegalArgumentException("Имя продукта должно быть от 2 до 20 символов");
+        }
+        if (name.isBlank()) {
+            System.out.println("Product.getSpaceInName");
+            System.out.println("Name.Exc.Value.toString{" +
+                    "name='" + name + '}');
+            throw new IllegalArgumentException("Не должно быть пробелов взаместо имени продукта");
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Product)) return false;
+        return Objects.equals(name, ((Product) o).name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
+    }
+
+    @Override
+    public String getContentType() {
+        return "PRODUCT";
+    }
+
+    @Override
+    public String getSearchTerm() {
+        return name;
+
+    }
+
     public abstract int getPrice();
-public abstract boolean isSpecial();
+
+    public abstract boolean isSpecial();
+
     public String getName() {
 
         if (name == null) {
@@ -21,6 +69,6 @@ public abstract boolean isSpecial();
     }
 
     public String toString() {
-        return  "name='" + name + '\'';
+        return "name='" + name + '\'';
     }
 }
