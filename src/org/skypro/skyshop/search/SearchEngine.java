@@ -2,28 +2,37 @@ package org.skypro.skyshop.search;
 import java.util.*;
 
 public class SearchEngine {
-    private List<Searchable> searchablesScroll;
+    private Set<Searchable> searchablesScroll;
 
     public SearchEngine() {
-        searchablesScroll = new LinkedList<>();
+        searchablesScroll = new HashSet<>();
     }
 
-    public Map<String, List<Searchable>> search(String queryRequest) {
-        Map<String, List<Searchable>> searchablesMap = new LinkedHashMap<>();
+    public Set<Searchable> search(String queryRequest) {
+
+        Set<Searchable> searchablesSet = new TreeSet<Searchable>(new SearchComparator());
+
+        if (queryRequest.isBlank()) {
+            System.out.println("SearchEngine.getSpaceInQueryRequest");
+            System.out.println("SearchTerm.Exc.Value.toString{" +
+                    "Term='" + queryRequest + "'}");
+            throw new IllegalArgumentException("Не должно быть пробелов в названии запроса");
+        }
+
         if (searchablesScroll.size() == 0) {
             System.out.println("Нет товаров доступных для поиска.");
-            return searchablesMap;
+            return searchablesSet;
         }
         for (Searchable searchable : searchablesScroll) {
-                if (searchable.getSearchTerm().equalsIgnoreCase(queryRequest)) {
-                    System.out.println("Поисковый запрос: '" + queryRequest + "' найден");
-                    searchablesMap.computeIfAbsent(searchable.getSearchTerm(), k -> new ArrayList<>()).add(searchable);
-                }
+            if (searchable.getSearchTerm().contains(queryRequest)) {
+                System.out.println("Поисковый запрос: '" + queryRequest + "' найден");
+                searchablesSet.add(searchable);
             }
-        if (searchablesMap.size() == 0) {
+        }
+        if (searchablesSet.size() == 0) {
             System.out.println("Поисковый запрос: '" + queryRequest + "' не найден");
         }
-        return searchablesMap;
+        return searchablesSet;
     }
 
     public void add(Searchable searchable) {
@@ -43,12 +52,9 @@ public class SearchEngine {
         System.out.println("SearchEngine.searchResults");
         int score = 0;
         int maxFound = 0;
-        Map<String, List<Searchable>> searchablesMap = new LinkedHashMap<>(search(search));
+        Set<Searchable> searchablesSet = new HashSet<>(search(search));
         Searchable bestResult = null;
-        for (Map.Entry<String, List<Searchable>> entry : searchablesMap.entrySet()) {
-
-            List<Searchable> searchables = entry.getValue();
-            for (Searchable searchable : searchables) {
+        for (Searchable searchable : searchablesSet) {
 
                 String strOrig = searchable.getSearchTerm().toLowerCase();
                 String subStringOrig = search.toLowerCase();
@@ -60,7 +66,6 @@ public class SearchEngine {
 
             }
 
-        }
         if (bestResult == null) {
             throw new BestResultNotFound(search);
         }
@@ -69,13 +74,23 @@ public class SearchEngine {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        SearchEngine that = (SearchEngine) o;
-        return Objects.equals(searchablesScroll, that.searchablesScroll);
+        if (!(o instanceof SearchEngine)) return false;
+        return Objects.equals(searchablesScroll, ((SearchEngine) o));
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(searchablesScroll);
+    }
+}
+
+class SearchComparator implements Comparator<Searchable> {
+    @Override
+    public int compare(Searchable o1, Searchable o2) {
+        String term1 = o1.getSearchTerm().toLowerCase();
+        String term2 = o2.getSearchTerm().toLowerCase();
+        int resultOfCompare = Integer.compare(term2.length(), term1.length());
+        if (resultOfCompare == 0) return term2.compareTo(term1);
+        return resultOfCompare;
     }
 }

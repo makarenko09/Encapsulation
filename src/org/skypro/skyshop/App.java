@@ -10,6 +10,8 @@ import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
+import java.util.Collections;
+
 public class App {
     private static final int fixIndexValueOfMethodToAddProduct = 600;
     private static int coast = 0;
@@ -25,37 +27,53 @@ public class App {
     }
 
     private static void taskSix() {
-        SearchEngine searchEngine = new SearchEngine();
-        Searchable egg = new SimpleProduct(100, "яицо");
-        searchEngine.add(egg);
-        searchEngine.add(new SimpleProduct(100, "яицо"));
-        searchEngine.add(new SimpleProduct(146, "milk"));
-        searchEngine.add(new SimpleProduct(15_000, "МОЁТ"));
-        searchEngine.add(new SimpleProduct(200, "молоко"));
-        searchEngine.add(new SimpleProduct(300, "сыр"));
-        searchEngine.add(new SimpleProduct(450, "телёнок"));
-        searchEngine.add(new SimpleProduct(500, "печенье"));
-        searchEngine.add(new DiscountedProduct("Икра красная", 2700, 26));
-        searchEngine.add(new SimpleProduct(50, "Капуста зеленая"));
+        try {
 
-        System.out.println("!В классе SearchEngine метод search возвращает Map  где ключи — имена подходящих объектов Searchable  а значения — сами объекты...");
-        System.out.println(searchEngine.search("яицо"));
 
-        System.out.println(searchEngine.search("молоко"));
-        System.out.println(searchEngine.search(" "));
-        System.out.println(searchEngine.search("упаковка яиц"));
-        System.out.println("!В методе main продемонстрирован измененный метод search\n");
-        searchEngine.search("яицо");
-        System.out.println("--");
-        searchEngine.search("яицо");
-        System.out.println("--");
-        searchEngine.search("молоко");
-        System.out.println("--");
-        searchEngine.search(" ");
+            SearchEngine searchEngine = new SearchEngine();
+            Searchable egg = new SimpleProduct(100, "яицо куриное");
+            searchEngine.add(egg);
+            searchEngine.add(new SimpleProduct(100, "яицо"));
+            searchEngine.add(new SimpleProduct(146, "milk"));
+            searchEngine.add(new SimpleProduct(15_000, "МОЁТ"));
+            searchEngine.add(new SimpleProduct(200, "молоко"));
+            searchEngine.add(new SimpleProduct(200, "молоко топленое"));
+            searchEngine.add(new SimpleProduct(200, "молоко топ."));
+            searchEngine.add(new SimpleProduct(200, "молоко сыр."));
+            searchEngine.add(new SimpleProduct(200, "молоко в стекле"));
+            searchEngine.add(new SimpleProduct(300, "сыр"));
+            searchEngine.add(new SimpleProduct(500, "сыр плавленный"));
+            searchEngine.add(new SimpleProduct(35, "сыр твердый"));
+            searchEngine.add(new SimpleProduct(450, "телёнок"));
+            searchEngine.add(new SimpleProduct(500, "печенье"));
+            searchEngine.add(new SimpleProduct(500, "пара хромосом 'XY'"));
+            searchEngine.add(new SimpleProduct(500, "пара хромосом 'XX'"));
+            searchEngine.add(new DiscountedProduct("Икра красная", 2700, 26));
+            searchEngine.add(new SimpleProduct(50, "Капуста зеленая"));
 
-        System.out.println("--");
-        searchEngine.search("упаковка яиц");
-        System.out.println("--");
+            System.out.println("!В классе SearchEngine метод search возвращает Map  где ключи — имена подходящих объектов Searchable  а значения — сами объекты...");
+            System.out.println(searchEngine.search("яицо"));
+            System.out.println(searchEngine.search("сыр"));
+            System.out.println(searchEngine.search("молоко"));
+            System.out.println(searchEngine.search("упаковка яиц"));
+            System.out.println(searchEngine.search("хромосом"));
+            System.out.println("!В методе main продемонстрирован измененный метод search\n");
+            searchEngine.search("яицо");
+            System.out.println("--");
+            searchEngine.search("яицо");
+            System.out.println("--");
+            searchEngine.search("молоко");
+            System.out.println("--");
+            searchEngine.search("сыр");
+
+            System.out.println("--");
+            searchEngine.search("упаковка яиц");
+            System.out.println("--");
+            searchEngine.search("хромосом");
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void taskFive() {
@@ -111,19 +129,22 @@ public class App {
             searchEngine.add(new SimpleProduct(15_000, "МОЁТ"));
             searchEngine.add(new SimpleProduct(200, "молоко"));
             searchEngine.add(new SimpleProduct(300, "сыр"));
+            searchEngine.add(new SimpleProduct(500, "сыр плавленный"));
+            searchEngine.add(new SimpleProduct(35, "сыр твердый"));
+
             searchEngine.add(new SimpleProduct(450, "телёнок"));
             searchEngine.add(new SimpleProduct(500, "печенье"));
             searchEngine.add(new DiscountedProduct("Икра красная", 2700, 26));
             searchEngine.add(new SimpleProduct(50, "Капуста зеленая"));
             searchEngine.add(new SimpleProduct(280, "Перец острый-Чили"));
             searchEngine.add(new DiscountedProduct("Фигурка Альтаира", 18_000000, 99));
-            searchEngine.add(new Article("Сделаем ошибку в статье", null));
             searchEngine.add(new Article("Искусственный интеллект в медицине", "Искусственный интеллект (ИИ) революционизирует сферу здравоохранения, предоставляя новые инструменты для диагностики, лечения и прогнозирования заболеваний. Данная статья рассматривает текущие применения ИИ в медицине и потенциальные перспективы его развития."));
             searchEngine.add(new Article("Квантовые компьютеры: будущее вычислений", "Квантовые компьютеры обещают произвести революцию в мире вычислений, предлагая беспрецедентную вычислительную мощность для решения сложных задач. В этой статье мы исследуем принципы работы квантовых компьютеров и их потенциальное влияние на различные области науки и технологий."));
             searchEngine.add(new Article("Глобальное потепление: вызовы и решения", "Глобальное потепление представляет собой одну из наиболее серьезных угроз для нашей планеты. Эта статья анализирует текущие тенденции изменения климата, их последствия и предлагает возможные стратегии по смягчению и адаптации к этим изменениям."));
             searchEngine.add(new Article("Нейропластичность: как мозг меняется в течение жизни", "Нейропластичность - удивительная способность мозга изменяться и адаптироваться на протяжении всей жизни. В этой статье мы рассмотрим механизмы нейропластичности и их значение для обучения, восстановления после травм и общего когнитивного здоровья."));
             searchEngine.add(new Article("Блокчейн: за пределами криптовалют", "Хотя блокчейн наиболее известен как технология, лежащая в основе криптовалют, его потенциал выходит далеко за рамки финансового сектора. Эта статья исследует инновационные применения блокчейна в различных отраслях, от управления цепочками поставок до защиты авторских прав."));
             searchEngine.add(new Article("Генная инженерия: этические вопросы и перспективы", "Генная инженерия открывает беспрецедентные возможности для лечения заболеваний и улучшения качества жизни. Однако она также поднимает серьезные этические вопросы. В этой статье мы рассмотрим текущее состояние генной инженерии, ее потенциальные применения и связанные с ней этические дилеммы."));
+            searchEngine.add(new Article("Крокодил Гена и его друзья", "«Крокодил Гена и его друзья» — детская сказочная повесть Эдуарда Успенского, первое из цикла произведений о Чебурашке и крокодиле Гене."));
             searchEngine.add(new SimpleProduct(34, "Гематоген"));
             searchEngine.add(new Article("Возобновляемые источники энергии: путь к устойчивому будущему", "Переход к возобновляемым источникам энергии является ключевым фактором в борьбе с изменением климата и обеспечении устойчивого развития. Эта статья анализирует текущее состояние и перспективы развития различных видов возобновляемой энергии, включая солнечную, ветровую и геотермальную."));
             searchEngine.add(new Article("Психология социальных сетей: влияние на общество", "Социальные сети стали неотъемлемой частью нашей жизни, но их влияние на психологическое здоровье и социальные взаимодействия остается предметом интенсивных исследований. В этой статье мы рассмотрим как позитивные, так и негативные аспекты использования социальных сетей."));
@@ -137,13 +158,14 @@ public class App {
             System.out.println("--");
             System.out.println(searchEngine.search("яицо"));
             System.out.println(searchEngine.search("молоко"));
-            System.out.println(searchEngine.search(" "));
 
             System.out.println("!Продемонстрируйте в методе main новый метод поиска в двух сценариях: " +
                     "когда нужный объект существует, когда метод выбрасывает исключение. " +
                     "Обработайте исключение и выведите сообщения об ошибке.");
 
             System.out.println(searchEngine.searchResults("Ген"));
+            System.out.println(searchEngine.searchResults("Гена"));
+            System.out.println(searchEngine.searchResults("Генная"));
             System.out.println(searchEngine.searchResults("Арматура"));
         } catch (IllegalArgumentException e) {
             System.out.println(e);

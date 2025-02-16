@@ -2,6 +2,8 @@ package org.skypro.skyshop.article;
 
 import org.skypro.skyshop.search.Searchable;
 
+import java.util.Objects;
+
 public class Article implements Searchable {
     private String name;
     private String title;
@@ -14,6 +16,17 @@ public class Article implements Searchable {
                     "name=" + name + ", title= " + title + '}');
             throw new IllegalArgumentException("Имя и/или содержание статьи не может быть null");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Article)) return false;
+        return Objects.equals(name, ((Article) o).name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
     }
 
     @Override

@@ -2,6 +2,8 @@ package org.skypro.skyshop.product;
 
 import org.skypro.skyshop.search.Searchable;
 
+import java.util.Objects;
+
 public abstract class Product implements Searchable {
     protected String name;
 
@@ -30,6 +32,17 @@ public abstract class Product implements Searchable {
                     "name='" + name + '}');
             throw new IllegalArgumentException("Не должно быть пробелов взаместо имени продукта");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Product)) return false;
+        return Objects.equals(name, ((Product) o).name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
     }
 
     @Override
