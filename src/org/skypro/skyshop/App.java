@@ -18,11 +18,11 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println("\nApp.main.5\n");
-        taskFive();
+//        taskFive();
         System.out.println("\nApp.main.5.1\n");
-        taskFourPartTwoUseMethodFoSearch();
+//        taskFourPartTwoUseMethodFoSearch();
         System.out.println("\nApp.main.6\n");
-        taskSix();
+//        taskSix();
         System.out.println("\nEnd.\n");
     }
 
