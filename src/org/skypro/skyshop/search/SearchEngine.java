@@ -1,5 +1,6 @@
 package org.skypro.skyshop.search;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SearchEngine {
     private Set<Searchable> searchablesScroll;
@@ -10,7 +11,9 @@ public class SearchEngine {
 
     public Set<Searchable> search(String queryRequest) {
 
-        Set<Searchable> searchablesSet = new TreeSet<Searchable>(new SearchComparator());
+        if (searchablesScroll.size() == 0) {
+            System.out.println("Нет товаров доступных для поиска.");
+        }
 
         if (queryRequest.isBlank()) {
             System.out.println("SearchEngine.getSpaceInQueryRequest");
@@ -18,19 +21,22 @@ public class SearchEngine {
                     "Term='" + queryRequest + "'}");
             throw new IllegalArgumentException("Не должно быть пробелов в названии запроса");
         }
+        Set<Searchable> searchablesSet = searchablesScroll.stream()
+                .filter(searchable -> searchable.getSearchTerm().contains(queryRequest))
+                .collect(Collectors.toCollection(() -> new TreeSet<>(new SearchComparator())));
 
-        if (searchablesScroll.size() == 0) {
-            System.out.println("Нет товаров доступных для поиска.");
-            return searchablesSet;
-        }
-        for (Searchable searchable : searchablesScroll) {
-            if (searchable.getSearchTerm().contains(queryRequest)) {
-                System.out.println("Поисковый запрос: '" + queryRequest + "' найден");
-                searchablesSet.add(searchable);
-            }
-        }
+//                Set<Searchable> searchablesSet = new TreeSet<Searchable>(new SearchComparator());
+//                searchablesScroll.stream()
+//                .map(Searchable::getSearchTerm)
+//                .filter(name -> name.contains(queryRequest))
+//                        .sorted(new SearchComparator())
+//                .collect(Collectors.toCollection(searchablesSet));
+
         if (searchablesSet.size() == 0) {
             System.out.println("Поисковый запрос: '" + queryRequest + "' не найден");
+
+        } else {
+            System.out.println("Поисковый запрос: '" + queryRequest + "' найден");
         }
         return searchablesSet;
     }
