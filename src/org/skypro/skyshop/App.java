@@ -17,19 +17,19 @@ public class App {
     private static int coast = 0;
 
     public static void main(String[] args) {
+        System.out.println("\nApp.main.Demo\n");
+        startDemo();
         System.out.println("\nApp.main.5\n");
-//        taskFive();
+        taskFive();
         System.out.println("\nApp.main.5.1\n");
-//        taskFourPartTwoUseMethodFoSearch();
+        taskFourPartTwoUseMethodFoSearch();
         System.out.println("\nApp.main.6\n");
-//        taskSix();
+        taskSix();
         System.out.println("\nEnd.\n");
     }
 
     private static void taskSix() {
         try {
-
-
             SearchEngine searchEngine = new SearchEngine();
             Searchable egg = new SimpleProduct(100, "яицо куриное");
             searchEngine.add(egg);
@@ -77,10 +77,11 @@ public class App {
     }
 
     private static void taskFive() {
+        System.out.println("App.taskFive");
         Product[] productsDemo = new Product[10];
         ProductBasket basketDemo = new ProductBasket();
-        Product simpleProduct = new SimpleProduct(200, "упаковка яиц");
         productsDemo[0] = new SimpleProduct(12, "Зубная палочка");
+        Product simpleProduct = new SimpleProduct(200, "упаковка яиц");
         productsDemo[4] = (new DiscountedProduct("Икра красная", 2700, 26));
         productsDemo[6] = (new FixPriceProduct("Сельдерей упаковка"));
         productsDemo[6] = (new FixPriceProduct("Сельдерей упаковка"));
@@ -155,7 +156,11 @@ public class App {
             searchEngine.search("яицо");
             System.out.println("--");
             System.out.println(searchEngine.search("яицо"));
+            System.out.println("----");
+            searchEngine.search("сыр");
             System.out.println("--");
+            System.out.println(searchEngine.search("сыр"));
+            System.out.println("----");
             System.out.println(searchEngine.search("яицо"));
             System.out.println(searchEngine.search("молоко"));
 

@@ -5,19 +5,21 @@ import org.skypro.skyshop.search.Searchable;
 import java.util.Objects;
 
 public class Article implements Searchable {
+
     private String name;
+
     private String title;
 
     public Article(String name, String title) {
-        this.name = name;
-        this.title = title;
+
         if (title == null || name == null) {
             System.out.println("Article.Exc.Null.toString{" +
                     "name=" + name + ", title= " + title + '}');
             throw new IllegalArgumentException("Имя и/или содержание статьи не может быть null");
         }
+        this.name = name;
+        this.title = title;
     }
-
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Article)) return false;

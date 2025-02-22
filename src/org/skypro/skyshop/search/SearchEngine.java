@@ -1,4 +1,6 @@
 package org.skypro.skyshop.search;
+import org.skypro.skyshop.product.Product;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,16 +23,10 @@ public class SearchEngine {
                     "Term='" + queryRequest + "'}");
             throw new IllegalArgumentException("Не должно быть пробелов в названии запроса");
         }
+
         Set<Searchable> searchablesSet = searchablesScroll.stream()
                 .filter(searchable -> searchable.getSearchTerm().contains(queryRequest))
                 .collect(Collectors.toCollection(() -> new TreeSet<>(new SearchComparator())));
-
-//                Set<Searchable> searchablesSet = new TreeSet<Searchable>(new SearchComparator());
-//                searchablesScroll.stream()
-//                .map(Searchable::getSearchTerm)
-//                .filter(name -> name.contains(queryRequest))
-//                        .sorted(new SearchComparator())
-//                .collect(Collectors.toCollection(searchablesSet));
 
         if (searchablesSet.size() == 0) {
             System.out.println("Поисковый запрос: '" + queryRequest + "' не найден");
@@ -61,7 +57,6 @@ public class SearchEngine {
         Set<Searchable> searchablesSet = new HashSet<>(search(search));
         Searchable bestResult = null;
         for (Searchable searchable : searchablesSet) {
-
                 String strOrig = searchable.getSearchTerm().toLowerCase();
                 String subStringOrig = search.toLowerCase();
                 score = resultFullyFound(strOrig, subStringOrig);
@@ -69,7 +64,6 @@ public class SearchEngine {
                     maxFound = score;
                     bestResult = searchable;
                 }
-
             }
 
         if (bestResult == null) {

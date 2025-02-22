@@ -3,6 +3,7 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class ProductBasket {
     private Map<String, List<Product>> productMap;
@@ -14,7 +15,6 @@ public class ProductBasket {
 
     public void addProduct(Product product) {
         productMap.computeIfAbsent(product.getName(), k -> new LinkedList<Product>()).add(product);
-
         count++;
         System.out.println("Номер продукта: " + count + " - продукт добавлен : " + product);
         System.out.println("Особый продукт: return " + product.isSpecial());
@@ -22,49 +22,35 @@ public class ProductBasket {
 
     public void printBasket() {
         System.out.println("\nProductBasket.printBasket");
-
         if (productMap.size() == 0) {
             System.out.println("«В корзине пусто».");
-            return;
+        } else {
+            productMap.values().stream().flatMap(Collection::stream).forEach(System.out::println);
+            getSpecialCount();
+            System.out.println("Количество специальных товаров в корзине: " + getSpecialCount());
+            System.out.println("Итого: <" + takePay() + ">");
         }
+    }
 
-        System.out.println(productMap);
-
-        int countSpecial = 0;
-        for (List<Product> productList : productMap.values()) {
-
-            for (Product product : productList) {
-                if (product != null && product.isSpecial()) {
-                    countSpecial++;
-                }
-            }
-
-        }
-        System.out.println("Итого: <" + takePay() + ">");
-        System.out.println("Количество специальных товаров в корзине: " + countSpecial);
+    private int getSpecialCount() {
+        return (int) productMap.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public int takePay() {
-        int sumToPay = 0;
-
-        for (List<Product> productList : productMap.values()) {
-            for (Product element : productList) {
-                sumToPay += element.getPrice();
-
-            }
-        }
-        return sumToPay;
+        return productMap.values().stream()
+                .flatMap(Collection::stream)
+                .map(Product::getPrice)
+                .mapToInt(i -> i).sum();
     }
 
     public boolean checkProductOnBasket(String name) {
-        for (List<Product> productList : productMap.values()) {
-            for (Product product : productList) {
-                if (product != null && product.getName().equalsIgnoreCase(name)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return productMap.values().stream().flatMap(Collection::stream).filter(Objects::nonNull).map(Product::getName)
+                .map(x -> x.equalsIgnoreCase(name))
+                .findFirst().orElse(false);
     }
 
     public void checkProduct(String name) {
