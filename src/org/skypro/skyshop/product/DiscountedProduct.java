@@ -6,11 +6,21 @@ public class DiscountedProduct extends Product {
 
     public DiscountedProduct(String name, int basicPrice, int discountInTargetCurrencies) {
         super(name);
-        this.basicPrice = basicPrice;
-        if (basicPrice <= 0) {
-            throw new IllegalArgumentException("цена не может быть отрицательной или нулём");
-        }
         this.discountInTargetCurrencies = discountInTargetCurrencies;
+        this.basicPrice = basicPrice;
+        if (basicPrice < 0) {
+            System.out.println("BasicPrice.Exc.ZeroDown.toString{" +
+                    "price=" + basicPrice +
+                    '}');
+            throw new IllegalArgumentException("Цена не может быть ниже нуля");
+        }
+        if ((discountInTargetCurrencies < 0 || discountInTargetCurrencies > 100)) {
+            System.out.println("Discount.Exc.Value{" +
+                    "discount=" + discountInTargetCurrencies +
+                    ", price=" + basicPrice +
+                    '}');
+            throw new IllegalArgumentException("Скидка не может быть ниже 0 и больше 100-та");
+        }
     }
 
     @Override
@@ -21,6 +31,10 @@ public class DiscountedProduct extends Product {
     @Override
     public int getPrice() {
         return basicPrice * (100 - discountInTargetCurrencies) / 100;
+    }
+
+    public int getDiscountInTargetCurrencies() {
+        return discountInTargetCurrencies;
     }
 
     @Override
